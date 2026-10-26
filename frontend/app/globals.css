@@ -14,16 +14,18 @@ body {
 
 @media print {
   @page {
-    size: A4 portrait;
-    margin: 8mm 12mm 8mm 12mm;
+    /* size: auto agar browser mengikuti ukuran kertas printer continuous form yang disetel di Windows */
+    size: auto;
+    margin: 2mm 5mm 2mm 5mm;
   }
 
   html, body {
     background: #ffffff !important;
     color: #000000 !important;
-    font-size: 10.5pt !important;
+    font-size: 9.5pt !important;
     margin: 0 !important;
     padding: 0 !important;
+    font-family: "Times New Roman", Times, Georgia, serif !important;
   }
 
   .no-print {
@@ -41,6 +43,26 @@ body {
     border: none !important;
     padding: 0 !important;
     margin: 0 !important;
+    background: transparent !important;
+  }
+
+  .receipt-print-wrapper {
+    width: 100% !important;
+    max-width: 100% !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    page-break-before: avoid !important;
+    page-break-after: avoid !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    color: #000000 !important;
+    background: #ffffff !important;
+    font-family: "Times New Roman", Times, Georgia, serif !important;
+  }
+
+  table, tr, td, th {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
   }
 
   * {

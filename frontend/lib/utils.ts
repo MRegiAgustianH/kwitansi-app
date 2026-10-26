@@ -39,8 +39,11 @@ export function formatDateIndo(dateStr: string): string {
 
 export function formatPrintDateTime(d: Date = new Date()): string {
   const day = String(d.getDate()).padStart(2, '0');
-  const shortMonths = ['Okt', 'Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
-  const month = shortMonths[d.getMonth() + 1] || 'Okt';
+  const shortMonths = [
+    'Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun',
+    'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des',
+  ];
+  const month = shortMonths[d.getMonth()] || 'Okt';
   const year = String(d.getFullYear()).slice(-2);
   const hours = String(d.getHours()).padStart(2, '0');
   const mins = String(d.getMinutes()).padStart(2, '0');

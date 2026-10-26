@@ -31,57 +31,71 @@ export default function ReceiptPrint({
   items = [],
   printDate = new Date(),
 }: ReceiptPrintProps) {
-  const hospitalName = settings?.hospitalName || 'KLINIK UTAMA DR. H. A. ROTINSULU CIANJUR';
+  const hospitalName =
+    settings?.hospitalName || 'KLINIK UTAMA DR. H. A. ROTINSULU CIANJUR';
   const ministryName = settings?.ministryName || 'KEMENTERIAN KESEHATAN RI';
-  const address = settings?.address || 'Jl. Siliwangi No. 19 Cianjur, Telp 0263-261851, Website : bbkpm-bandung.org/cabang/view/cianjur, Email : bkpmcianjur@yahoo.co.id';
+  const address =
+    settings?.address ||
+    'Jl. Siliwangi No. 19 Cianjur, Telp 0263-261851, Website : bbkpm-bandung.org/cabang/view/cianjur, Email : bkpmcianjur@yahoo.co.id';
   const city = settings?.city || 'Cianjur';
   const receiptTitle = settings?.receiptTitle || 'BUKTI PEMBAYARAN';
 
   return (
-    <div className="receipt-print-wrapper bg-white text-black text-[12px] font-sans leading-tight max-w-[760px] mx-auto p-4 sm:p-6 print:p-0 print:max-w-full">
-      {/* Header Kop Surat */}
-      <div className="text-center pb-2">
-        <h2 className="text-[13px] font-bold tracking-wide uppercase">{ministryName}</h2>
-        <h1 className="text-[15px] font-bold tracking-wide uppercase mt-0.5">{hospitalName}</h1>
-        <p className="text-[10px] mt-1 text-black font-normal max-w-[680px] mx-auto leading-tight">
+    <div
+      className="receipt-print-wrapper bg-white text-black text-[11.5px] leading-tight max-w-[760px] mx-auto p-4 sm:p-5 print:p-0 print:max-w-full print:w-full select-none"
+      style={{
+        fontFamily: '"Times New Roman", Times, Georgia, serif',
+        color: '#000000',
+      }}
+    >
+      {/* 1. Header Kop Surat */}
+      <div className="text-center pb-1">
+        <h2 className="text-[12.5px] font-normal tracking-wide uppercase">
+          {ministryName}
+        </h2>
+        <h1 className="text-[14px] font-bold tracking-wide uppercase mt-0.5">
+          {hospitalName}
+        </h1>
+        <p className="text-[10px] mt-0.5 text-black font-normal max-w-[690px] mx-auto leading-tight">
           {address}
         </p>
-        <div className="border-b-[2px] border-black mt-2 mb-3"></div>
+        {/* Double Underline sesuai format fisik kwitansi */}
+        <div className="border-b-[3px] border-double border-black mt-1 mb-2.5"></div>
       </div>
 
-      {/* Meta Pasien & Nomor Kwitansi */}
-      <div className="flex justify-between items-start mb-3 text-[12px]">
-        {/* Kolom Kiri: Identitas Pasien */}
-        <div className="space-y-1">
+      {/* 2. Metadata Pasien & Bukti Pembayaran */}
+      <div className="flex justify-between items-start mb-2.5 text-[11.5px]">
+        {/* Sisi Kiri: No. RM & Nama */}
+        <div className="space-y-0.5">
           <div className="flex">
-            <span className="w-20 font-medium">No. RM</span>
-            <span className="mr-2">:</span>
-            <span className="font-semibold tracking-wide">{medicalRecordNo || '-'}</span>
+            <span className="w-16 font-normal">No. RM</span>
+            <span className="mr-1.5">:</span>
+            <span className="font-normal">{medicalRecordNo || '-'}</span>
           </div>
           <div className="flex">
-            <span className="w-20 font-medium">Nama</span>
-            <span className="mr-2">:</span>
-            <span className="font-bold uppercase tracking-wide">{patientName || '-'}</span>
+            <span className="w-16 font-normal">Nama</span>
+            <span className="mr-1.5">:</span>
+            <span className="font-normal uppercase">{patientName || '-'}</span>
           </div>
         </div>
 
-        {/* Kolom Kanan: Nomor Kwitansi & Badge */}
-        <div className="space-y-1.5 text-right">
+        {/* Sisi Kanan: No Kwitansi & Kotak BUKTI PEMBAYARAN */}
+        <div className="space-y-1 text-right">
           <div className="flex justify-end items-center">
-            <span className="font-medium mr-1.5">No :</span>
-            <span className="font-semibold tracking-wider">{receiptNo || '-'}</span>
+            <span className="font-normal mr-1.5">No :</span>
+            <span className="font-normal">{receiptNo || '-'}</span>
           </div>
-          <div className="inline-block border border-black px-4 py-0.5 text-center font-bold text-[11px] tracking-wider uppercase">
+          <div className="inline-block border border-black px-6 py-0.5 text-center font-bold text-[11px] tracking-wide uppercase">
             {receiptTitle}
           </div>
         </div>
       </div>
 
-      {/* Tabel Kwitansi */}
-      <table className="w-full border-collapse text-[11.5px] mt-2">
+      {/* 3. Tabel Pemeriksaan Continuous Form */}
+      <table className="w-full border-collapse text-[11px] mt-1">
         <thead>
-          <tr className="border-b border-transparent text-left">
-            <th className="py-1 w-8 text-left font-bold">No</th>
+          <tr className="text-left">
+            <th className="py-1 w-7 text-left font-bold">No</th>
             <th className="py-1 font-bold">Nama</th>
             <th className="py-1 w-36 text-right font-bold">Harga</th>
             <th className="py-1 w-16 text-center font-bold">Qty</th>
@@ -89,20 +103,24 @@ export default function ReceiptPrint({
           </tr>
         </thead>
         <tbody>
-          {/* Baris Utama Paket */}
+          {/* Baris Utama: Nama Paket & Total Harga Paket */}
           <tr className="align-top">
-            <td className="py-1 font-normal">1</td>
-            <td className="py-1 font-bold tracking-wide">{packageName.toUpperCase()}</td>
-            <td className="py-1 text-right tabular-nums">{formatRupiah(totalAmount)}</td>
-            <td className="py-1 text-center">{packageQty}</td>
-            <td className="py-1 text-right tabular-nums">{formatRupiah(totalAmount)}</td>
+            <td className="py-0.5 font-normal">1</td>
+            <td className="py-0.5 font-bold">{packageName.toUpperCase()}</td>
+            <td className="py-0.5 text-right font-normal tabular-nums">
+              {formatRupiah(totalAmount)}
+            </td>
+            <td className="py-0.5 text-center font-normal">{packageQty}</td>
+            <td className="py-0.5 text-right font-normal tabular-nums">
+              {formatRupiah(totalAmount)}
+            </td>
           </tr>
 
-          {/* Sub-item Pemeriksaan: DICETAK TANPA HARGA SATUAN SESUAI KEBUTUHAN RS */}
+          {/* Rincian Nama Pemeriksaan di bawah Nama Paket (Tanpa Harga Satuan) */}
           {items.map((item, idx) => (
-            <tr key={idx} className="text-black">
+            <tr key={idx} className="text-black leading-[15px]">
               <td></td>
-              <td className="pl-4 py-0.5 text-[11px] tracking-tight uppercase">
+              <td className="pl-6 py-0 text-[10.5px] uppercase">
                 {item.name}
               </td>
               <td></td>
@@ -113,30 +131,30 @@ export default function ReceiptPrint({
         </tbody>
       </table>
 
-      {/* Baris Total Akhir */}
-      <div className="border-t border-transparent mt-4 pt-3 flex justify-end items-center">
-        <div className="flex items-center space-x-6 text-[12.5px] font-bold">
-          <span className="tracking-wider uppercase">TOTAL</span>
-          <span className="tabular-nums text-right min-w-[140px]">{formatRupiah(totalAmount)}</span>
+      {/* 4. Baris TOTAL (Rata Kanan Sejajar Kolom Jumlah) */}
+      <div className="mt-4 flex justify-end items-center text-[11.5px] font-bold">
+        <div className="flex items-center space-x-6">
+          <span className="uppercase font-bold">TOTAL</span>
+          <span className="tabular-nums text-right min-w-[130px] font-bold">
+            {formatRupiah(totalAmount)}
+          </span>
         </div>
       </div>
 
-      {/* Footer Kwitansi */}
-      <div className="mt-10 flex justify-between items-end text-[11px]">
-        {/* Kolom Tanggal Cetak */}
+      {/* 5. Footer Continuous Form: Kompak agar tidak menggulung halaman kedua */}
+      <div className="mt-8 flex justify-between items-start text-[10.5px]">
+        {/* Kolom Tanggal & Waktu Cetak */}
         <div className="text-left space-y-0.5">
           <div>Tanggal Cetak :</div>
-          <div className="font-mono text-[10.5px]">{formatPrintDateTime(printDate)}</div>
+          <div>{formatPrintDateTime(printDate)}</div>
         </div>
 
-        {/* Kolom Tanda Tangan Kasir */}
-        <div className="text-center min-w-[190px] space-y-12">
+        {/* Kolom Kasir Pendaftaran */}
+        <div className="text-left min-w-[190px] space-y-0.5">
           <div>
             {city}, {formatDateIndo(receiptDate)}
           </div>
-          <div>
-            <div className="border-b border-transparent pb-0.5 font-medium">{cashierName}</div>
-          </div>
+          <div>{cashierName}</div>
         </div>
       </div>
     </div>
