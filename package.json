@@ -1,0 +1,24 @@
+{
+  "name": "kwitansi-app",
+  "version": "1.0.0",
+  "description": "Sistem Web App Pembuatan Kwitansi MCU Rumah Sakit per Paket (NestJS & Next.js)",
+  "private": true,
+  "scripts": {
+    "dev": "node dev-launcher.js",
+    "build:backend": "cd backend && npm run build",
+    "build:frontend": "cd frontend && npm run build",
+    "build": "cd backend && npm run build && cd ../frontend && npm run build",
+    "start": "node launcher.js",
+    "start:backend": "cd backend && npm run start:prod",
+    "start:frontend": "cd frontend && npm run start -- -H 0.0.0.0 -p 3000"
+  },
+  "keywords": [
+    "kwitansi",
+    "mcu",
+    "rumah-sakit",
+    "nestjs",
+    "nextjs"
+  ],
+  "author": "",
+  "license": "ISC"
+}
